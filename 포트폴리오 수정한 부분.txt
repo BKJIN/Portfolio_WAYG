@@ -1,0 +1,62 @@
+----깃메인에서 채팅 구버전 ->신버전 업데이트시 수정할 부분----
+
+1.ChatRoomDto 수정 (전체 복사 붙여 넣어)
+
+2.ChatRoomController
+
+  public String create 메서드 부분 수정
+
+  public HashMap<String, Object> enterRoom 메서드 부분 수정 후 뒤에 메서드들 추가
+
+3.ChatIDao,ChatDao  수정 (기존꺼 바뀐부분도 있으니 걍 전체 복사 붙여 넣어)
+
+4.StompChatController
+
+  @MsssageMapping 부분 수정
+
+5. ChatIDao.xml 수정 (기존꺼 바뀐부분도 있으니 걍 전체 복사 붙여 넣어)
+
+6. views > chat > messages.jsp도 바뀐걸로 복사 붙여 넣어
+
+7. ChatRoomListCommand도 복사 붙여 넣어
+
+8. UserController에 join 메서드 부분 수정
+
+9. JoinCommand 수정( 복붙 추천)
+
+10. UserIDao, UserDao,UserIDao.xml join 부분 수정 (복붙 추천)
+
+11. FeedController에서 add_PrfImg, eraseImg 메서드 수정
+
+12. UserIDao, UserDao,UserIDao.xml deletePrfImg 부분 수정 (복붙 추천)
+
+13. 뷰 페이지에 프로필사진 나오는 부분, 자바스크립트로 프로필사진 뿌리는 부분 모두 찾아서 내거랑 똑같이 변경(개노가다)
+
+
+
+---관리자 로그인 후 유저 정보관리 페이지에 버튼 부분 수정 및 유저 사진 삭제 안되던거 수정
+    (기존에 사진변경 및 사진삭제 다 안됐는데 사진변경은 없애고 삭제만 가능하게 수정함)----
+
+1.feed_user_info.jsp 에서
+ 중간에 <form action="/init/feed/add_PrfImg?의 form 부분 변경, 마지막에 button부분 변경
+
+2.feed_uiser_inf.js 에서
+ $("#adminEraseImg").click(function() 제이쿼리 추가 됨
+
+3.AdminController에서
+ adminEraseImg 메서드 추가
+
+4.AdminMypsgeCommand에 
+
+String uPrfImg = dto.getUserProfileImg();
+model.addAttribute("fileName",uPrfImg);
+
+주석 풀어
+
+
+
+
+
+ 
+
+ 
