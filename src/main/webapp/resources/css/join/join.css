@@ -1,0 +1,56 @@
+#form-title {
+	font-size: 40px;
+	font-weight: 400;
+}
+
+
+.validation {
+	height:8px;
+	font-size:14px; 
+}
+
+.conditions {
+	height: 300px;
+	overflow: auto;
+}
+
+span.required {
+	color: orange;
+	font-weight: 400;
+}
+
+label#male.active, label#male:hover, label#male:focus {
+	background-color: #4E77FF;
+	color: white;
+
+}
+
+label#female.active, label#female:hover, label#female:focus {
+	background-color: #FF5C5C;
+	color: white
+}
+
+.form-group label {
+	font-weight: 500;
+}
+
+.form-group .form-control {
+	border: none;
+	border-radius: 0;
+	border-bottom: 1px solid #ced4da;
+}
+
+input[id^=userAddr] {
+	border: none;
+	border-radius: 0;
+	width: 80%;
+	border-bottom: 1px solid #ced4da;
+}
+
+.form-group .form-control[readonly=readonly] {
+	background-color: #F4F4F4;
+}
+
+#userinfo {
+	display: none;
+}

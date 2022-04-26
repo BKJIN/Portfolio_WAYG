@@ -1,0 +1,81 @@
+html, body {
+	height: 100%;
+}
+
+body::-webkit-scrollbar {
+    width: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: #A0A0A0 ;
+    border-radius: 15px;
+}
+
+body::-webkit-scrollbar-track {
+    background: #CCCCCC;  
+}
+
+section.container-fluid {
+	margin-top: 5em;
+	padding-bottom: 2em;
+	height: auto;
+}
+
+.planlist {
+	max-height: 900px;
+}
+
+.planlist #kakaobox {
+	max-width: 100%;
+	min-height: 900px;
+}
+
+h3[id^=date-title] {
+	font-size: 30px;
+	font-weight: 400;
+}
+
+#tabdiv{
+  width: 100%;
+  margin: 0 auto;
+  max-height: 900px;
+  overflow: auto;
+}
+
+
+#tabdiv::-webkit-scrollbar {
+    width: 8px;  /* �뒪�겕濡ㅻ컮�쓽 �꼫鍮� */
+}
+
+#tabdiv::-webkit-scrollbar-thumb {
+    height: 30%; /* �뒪�겕濡ㅻ컮�쓽 湲몄씠 */
+    background: #D0D0D0; /* �뒪�겕濡ㅻ컮�쓽 �깋�긽 */
+    
+    border-radius: 10px;
+}
+
+#tabdiv::-webkit-scrollbar-track {
+    background: #EFEFEF;  /*�뒪�겕濡ㅻ컮 �뮮 諛곌꼍 �깋�긽*/
+}
+
+
+.tab-content {
+  display: none;
+  padding: 15px;
+}
+
+.tab-content.active{
+  display: inherit;
+}
+
+.none {
+	 display: none;
+}
+
+textarea {
+	resize: none;
+}
+
+#deleteBtn {
+	height: 50%;
+}

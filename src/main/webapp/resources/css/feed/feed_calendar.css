@@ -1,0 +1,240 @@
+/*  */
+body::-webkit-scrollbar {
+    width: 10px;
+}
+body::-webkit-scrollbar-thumb {
+    background: #A0A0A0 ;
+    border-radius: 15px;
+}
+body::-webkit-scrollbar-track {
+    background: #CCCCCC;
+}
+
+
+/* section */
+section.container {
+	margin-top: 5em;
+}
+
+/* feed-header setting */
+.body-container #feed-header {
+	width: 100%;
+	height : 200px;
+}
+.body-container #feed-header #profile-img {
+	width: 180px;
+	height: 180px;
+}
+.body-container #feed-header #profile-img .profile-img {
+	font-size: 150px;
+	color: darkblue;
+}
+
+/* feed tab*/
+.feed-tabs {
+	flex-wrap: nowarp;
+	list-style: none;
+	padding: 0;
+}
+
+.feed-tabs .nav-item {
+	margin-bottom: 3px;
+	border: none;
+	border-radius: 0 0 5px 5px;
+	align-items: center;
+	font-size: 1.5rem;
+	text-align: center;
+}
+
+.feed-tabs .nav-item .nav-link {
+	color: #D8D8D8;
+}
+
+.feed-tabs .nav-item.active,
+.feed-tabs .nav-item.active:hover {
+	border: 1px solid #298DF9;
+	background-color: #298DF9;
+	color: white;
+}
+
+.feed-tabs .active .nav-link,
+.feed-tabs .active .nav-link:hover {
+	color: white;
+}
+
+.feed-tabs .nav-item:hover {
+	background-color: #D8D8D8;
+}
+
+
+.feed-tabs .nav-item:hover .nav-link {
+	color: white;
+}
+
+#main-body {
+	height: 1000px;
+}
+
+/* calendarcustom setting */
+/* event */
+.fc-event {
+	border-color: white;
+}
+
+/*  */
+.fc-day-sat>div, .fc-day-sat>div>div {
+	color : blue;
+}
+.fc-day-sun>div, .fc-day-sun>div>div {
+	color : red;
+}
+
+
+
+
+
+
+
+/* PlanMst  modal */
+#detailModal {
+	z-index: 99999;
+}
+
+.modal-dialog {
+	height : 100%;
+}
+.modal-content {
+	height : 40%;
+}
+#modalCloseBtn {
+	font-size: 3rem;
+	cursor: pointer;
+}
+.modal-body #modify_form {
+	width: 100%;
+}
+.modal-body .detail-days #plan-day {
+	font-size: 30px;
+	font-weight: 600;
+}
+
+.modal-body .plan-details {
+	height: 700px;
+}
+.modal-body .plan-details #map {
+  	max-width: 100%;
+	height: 100%;
+}
+
+/* modal .plan-details scroll setting */
+.plan-details > #details::-webkit-scrollbar {
+    width: 5px;
+}
+.plan-details > #details::-webkit-scrollbar-thumb {
+    background: #A0A0A0 ;
+    border-radius: 15px;
+}
+.plan-details > #details::-webkit-scrollbar-track {
+    background: #CCCCCC;
+}
+
+.modal-body .plan-details div[id^=details] {
+	height: 100%;
+	overflow : auto;
+	display: none;
+}
+
+.modal-body .plan-details div[id^=details].active {
+	display: block;
+}
+
+.modal-body .plan-details div[id^=details] .list-group-item {
+	height: 10%;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.modal-body .plan-details div[id^=details] .list-group-item h4 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.modal-body .plan-details div[id^=details] .list-group-item h6 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* īī�� �� CSS */
+.wrap {
+	padding: 0;
+	margin: 0;
+	border-radius: 15px;
+} 
+
+.wrap .info {
+	width: 350px;
+	height: 150px;
+	background: #fff;
+	border-radius: 15px;
+}
+
+.wrap .info:nth-child(1) {
+	border: 0;
+	box-shadow: 0px 2px 5px #888;
+}
+
+.info .title {
+	padding: 5px 0 0 5px;
+	box-shadow: 0px 2px 1px #888;
+	height: 25%;
+	border-radius: 15px;
+	font-size: 18px;
+	font-weight: bold;
+	color: white;
+}
+
+.info .body {
+	position: relative;
+}
+
+.info .content {
+	position: relative;
+	margin: 13px 0 0 90px;
+	height: 100%;
+}
+
+.content .address {
+	font-size: 13px;
+	color: #888;
+	margin-top: -2px;
+}
+
+.content .category {
+	font-size: 13px;
+	color: #888;
+	margin-top: -2px;
+}
+
+.content .theme {
+	font-size: 13px;
+	color: #888;
+	margin-top: -2px;
+}
+
+.content .transportation {
+	font-size: 13px;
+	color: #888;
+	margin-top: -2px;
+}
+
+.info .img {
+	margin: 5px 5px 0px 5px;
+	position: absolute;
+	width: 70px;
+	height: 60px;
+	color: #888;
+	overflow: hidden;
+}

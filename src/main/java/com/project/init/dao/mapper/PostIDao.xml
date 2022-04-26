@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.project.init.dao.PostIDao">      
+	
+	<!-- 게시글 작성 -->
+   <insert id="write" parameterType="com.project.init.dto.PostDto"> 
+      Insert into POST(EMAIL,POSTNO,CONTENT,HASHTAG,PLAN,TITLEIMAGE,IMAGES,views)
+       values (#{email},POST_NO_SEQ.NEXTVAL,#{content},#{hashtag},#{plan},#{titleImage},#{images},#{views})
+       
+       	<selectKey resultType="string" keyProperty="postNo" order="AFTER">
+			SELECT POST_NO_SEQ.currVal from dual
+		</selectKey>
+       
+   </insert>
+   
+	<!-- 게시글 불러오기 -->
+   <select id="list" parameterType="String" resultType="com.project.init.dto.PostDto" >
+      SELECT 
+        POSTNO,
+      	EMAIL,
+      	PLAN,
+      	TITLEIMAGE,
+	    IMAGES,
+	    CONTENT,
+	    HASHTAG,
+	    REGDATE,
+	    AUTHORITY,
+	    (SELECT userProfileImg FROM UserInfo WHERE userEmail = POST.EMAIL) userProfileImg,
+	    (SELECT userNick FROM UserInfo WHERE userEmail = POST.EMAIL) userNick,
+	    (SELECT count(*) from POST_VIEW where POST_VIEW.postno = POST.postno) VIEWS,
+	 	(SELECT count(*) from COMMENTS where comments.postno = POST.postno)comments, 
+		(SELECT count(*) from POST_LIKE where POST_LIKE.postno = POST.postno) likes,
+		(SELECT LIKES FROM POST_LIKE WHERE email = #{email,jdbcType=VARCHAR} AND POST_LIKE.postno=POST.postno) heart
+	 FROM POST ORDER BY POSTNO DESC
+   </select>
+   
+   	<!-- 게시글 불러오기 -->
+   <select id="mylist" parameterType="String" resultType="com.project.init.dto.PostDto" >
+      SELECT 
+        POSTNO,
+ 	    titleImage
+	 FROM POST 
+	 WHERE email = #{email}
+	 ORDER BY POSTNO DESC
+   </select>
+   
+
+   <update id="insertPostDt" parameterType="java.util.List">
+		<foreach collection="list" item="dt" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM dual ">
+			INTO post_dt
+				
+			VALUES
+			(#{dt.postNo},
+			#{dt.planNum},
+			#{dt.planDtNum},
+			#{dt.location})
+		</foreach>
+   </update>
+
+	<select id="selectMyPostDt" parameterType="java.util.List" resultType="com.project.init.dto.PostDtDto">
+   		SELECT * 
+   		FROM post_dt
+   		WHERE 
+   		<foreach collection="list" separator="OR" item="no">
+   			postNo = #{no}
+   		</foreach>
+	</select>
+
+
+	<delete id="deletePostDt" parameterType="java.util.List">
+   		DELETE FROM post_dt
+   		WHERE 
+   		<foreach collection="list" separator="OR" item="dt">
+   			(postNo = #{dt.postNo} AND planDtNum = #{dt.planDtNum})
+   		</foreach>
+	</delete>
+
+	<select id="selectPostDt" parameterType="int" resultType="com.project.init.dto.PostDtDto">
+   		SELECT * 
+   		FROM post_dt
+   		WHERE postNo = #{postNo}
+	</select>
+
+
+	<!-- 게시글 불러오기 -->
+   <select id="likeList" parameterType="String" resultType="com.project.init.dto.PostDto" >
+      SELECT 
+        POSTNO,
+         EMAIL,
+         PLAN,
+         TITLEIMAGE,
+       IMAGES,
+       CONTENT,
+       HASHTAG,
+       REGDATE,
+       AUTHORITY,
+       (SELECT userProfileImg FROM UserInfo WHERE userEmail = POST.EMAIL) userProfileImg,
+       (SELECT userNick FROM UserInfo WHERE userEmail = POST.EMAIL) userNick,
+       (SELECT count(*) from POST_VIEW where POST_VIEW.postno = POST.postno) VIEWS,
+       (SELECT count(*) from COMMENTS where comments.postno = POST.postno)comments, 
+      (SELECT count(*) from POST_LIKE where POST_LIKE.postno = POST.postno) likes,
+      (SELECT LIKES FROM POST_LIKE WHERE email = #{email,jdbcType=VARCHAR} AND POST_LIKE.postno=POST.postno) heart
+    	FROM POST ORDER BY likes DESC
+   </select>
+
+	<!-- 게시글 불러오기 -->
+   <select id="viewList" parameterType="String" resultType="com.project.init.dto.PostDto" >
+      SELECT 
+        POSTNO,
+      	EMAIL,
+      	PLAN,
+      	TITLEIMAGE,
+	    IMAGES,
+	    CONTENT,
+	    HASHTAG,
+	    REGDATE,
+	    AUTHORITY,
+		(SELECT userProfileImg FROM UserInfo WHERE userEmail = POST.EMAIL) userProfileImg,
+        (SELECT userNick FROM UserInfo WHERE userEmail = POST.EMAIL) userNick,
+        (SELECT count(*) from POST_VIEW where POST_VIEW.postno = POST.postno) VIEWS,
+        (SELECT count(*) from COMMENTS where comments.postno = POST.postno)comments, 
+        (SELECT count(*) from POST_LIKE where POST_LIKE.postno = POST.postno) likes,
+        (SELECT LIKES FROM POST_LIKE WHERE email = #{email,jdbcType=VARCHAR} AND POST_LIKE.postno=POST.postno) heart
+	 	FROM POST ORDER BY
+	  	VIEWS DESC
+   </select>
+
+   
+   
+	<!-- 게시글 하나 불러오기 -->
+   <select id="getlist" parameterType="com.project.init.dto.PostDto" resultType="com.project.init.dto.PostDto">
+      <![CDATA[
+      SELECT 
+     	POSTNO,
+      	EMAIL,
+      	PLAN,
+      	TITLEIMAGE,
+	    IMAGES,
+	    CONTENT,
+	    HASHTAG,
+	    REGDATE,
+	    AUTHORITY,
+	    (SELECT userProfileImg FROM UserInfo WHERE userEmail = (SELECT email FROM POST WHERE POSTNO= #{postNo})) userProfileImg,
+	    (SELECT userNick FROM UserInfo WHERE userEmail = (SELECT email FROM POST WHERE POSTNO= #{postNo})) userNick,
+	    (SELECT COUNT(*) FROM POST_LIKE WHERE email = #{email} AND POSTNO = #{postNo}) heartCheck,
+	    (SELECT COUNT(*) FROM POST_VIEW WHERE POST_VIEW.postno = POST.postno) VIEWS,
+	 	(SELECT COUNT(*) FROM COMMENTS WHERE comments.postno = POST.postno) comments, 
+		(SELECT COUNT(*) FROM POST_LIKE WHERE POST_LIKE.postno = POST.postno) likes
+      FROM POST where POSTNO= #{postNo} ORDER BY POSTNO 
+       ]]>
+   </select>
+   
+   	<!-- 게시글 삭제 -->
+   <select id="deletePost" parameterType="String" >
+		DELETE FROM POST WHERE POSTNO = #{postNo}
+   </select>
+
+   <select id="deletePostDt2" parameterType="int" >
+		DELETE FROM POST_DT WHERE POSTNO = #{postNo}
+   </select>
+
+	<!--게시글을 삭제 하면 댓글 또한 삭제 -->
+   <select id="deleteComments" parameterType="String" >
+		DELETE FROM COMMENTS WHERE POSTNO = #{postNo}
+   </select>
+   
+   	<!--게시글을 삭제 하면 댓글 또한 삭제 -->
+   <select id="deleteLikes" parameterType="String" >
+		DELETE FROM POST_LIKE WHERE POSTNO = #{postNo}
+   </select>
+   
+   <!--게시글을 삭제 하면 views 또한 삭제 -->
+   <select id="deleteViews" parameterType="String" >
+		DELETE FROM POST_VIEW WHERE POSTNO = #{postNo}
+   </select>
+   
+	<!-- 게시글 수정을 위한 데이터 불러오기 -->
+   <select id="modifyList" parameterType="String" resultType="com.project.init.dto.PostDto">
+      SELECT * FROM POST where POSTNO= #{postNo}
+   </select>
+   
+   	<!-- 게시글 수정 -->
+   <update id="modifyExcute" parameterType="String" >
+      UPDATE POST 
+      SET CONTENT = #{content}, HASHTAG = #{hashtag}, TITLEIMAGE = #{titleImage}, IMAGES = #{images} 
+      WHERE POSTNO = #{postNo} AND email = #{email}
+   </update>
+
+	<!-- 댓글 달기 -->
+   <insert id="addcomments" parameterType="com.project.init.dto.CommentsDto">
+      <![CDATA[
+      INSERT INTO COMMENTS (COMMENTNO,POSTNO,CONTENT,grp,grpl,grps,EMAIL)
+       VALUES (COMMENTS_SEQ.nextval,#{postNo},#{content},COMMENTS_SEQ.CURRVAL,#{grpl},0,#{email})
+       ]]>
+   </insert>
+   
+   	<!-- 댓글 가져오기 -->
+   <select id="getcomments" parameterType="String" resultType="com.project.init.dto.CommentsDto">
+      SELECT
+       COMMENTNO,
+       POSTNO,
+       EMAIL,
+       CONTENT,
+       grp,
+       grpl,
+       grps,
+       (SELECT userProfileImg FROM UserInfo WHERE userEmail = COMMENTS.EMAIL) userProfileImg,
+	   (SELECT userNick FROM UserInfo WHERE userEmail = COMMENTS.EMAIL) userNick
+       FROM COMMENTS WHERE POSTNO= #{postNo} ORDER BY GRP DESC, GRPS ASC
+   </select>
+
+   <update id="beforeAddReply" parameterType="com.project.init.dto.CommentsDto" >
+      <![CDATA[
+         UPDATE COMMENTS SET grps = grps + 1 
+          WHERE grp = #{grp} AND grps >#{grps}
+       ]]>
+   </update>
+   
+   <!-- 대 댓글 작성 -->
+   <insert id="addReplyComments" parameterType="com.project.init.dto.CommentsDto">
+      <![CDATA[
+      INSERT INTO COMMENTS (COMMENTNO,POSTNO,CONTENT,grp,grpl,grps,EMAIL) 
+       VALUES
+         (COMMENTS_SEQ.nextval,
+         #{postNo},
+         #{content},
+         #{grp},
+         (#{grpl}+1),
+         (#{grps}+1),
+         #{email})
+       ]]>
+   </insert>
+   
+   <!-- 대 댓글 삭제 -->
+   <update id="deleteReplyComments" parameterType="String" >
+      <![CDATA[
+         UPDATE COMMENTS SET CONTENT = '(삭제된 댓글입니다.)'
+          WHERE COMMENTNO = #{commentNo} 
+       ]]>
+   </update>
+   
+   <!-- 좋아요 추가 -->
+   <insert id="addLike" parameterType="com.project.init.dto.PostLikeDto">
+  	
+  	 INSERT INTO post_like(POSTLIKENO,POSTNO,EMAIL,LIKES) VALUES (POST_LIKE_SEQ.NEXTVAL,#{postNo},#{email},1)
+   
+   </insert>
+   
+    <delete id="deleteLike" parameterType="com.project.init.dto.PostLikeDto"> 
+   
+   	DELETE FROM post_like WHERE POSTNO=#{postNo} AND EMAIL =#{email}
+   </delete> 
+
+   <select id="like" resultType="_int" parameterType="com.project.init.dto.PostLikeDto">
+  	
+  	 SELECT count(*) FROM post_like WHERE POSTNO=#{postNo} AND EMAIL =#{email}
+   
+   </select>
+   
+   <select id="view" resultType="_int" parameterType="com.project.init.dto.PostViewDto">
+  	
+  	 SELECT count(*) FROM POST_VIEW WHERE POSTNO=#{postNo} AND EMAIL =#{email}
+   
+   </select>
+   
+   <insert id="addView" parameterType="com.project.init.dto.PostViewDto">
+  	
+  	 INSERT INTO post_view(POSTVIEWNO,POSTNO,EMAIL,VIEWS) VALUES (POST_VIEW_SEQ.NEXTVAL,#{postNo},#{email},1)
+   
+   </insert>
+   
+      <!-- 게시글 불러오기 -->
+   <select id="getMapPost" parameterType="java.util.List" resultType="com.project.init.dto.PostDtDto" >
+		SELECT 
+        	*
+		FROM POST_DT
+		WHERE
+		<foreach collection="list" separator="OR" item="dt">
+			planDtNum = #{dt.planDtNum}
+		</foreach>
+   </select>
+   
+   	<select id="countPost" parameterType="String" resultType="int">
+		SELECT count(*) FROM post WHERE email = #{email}
+	</select>
+   
+   
+   
+</mapper>
+

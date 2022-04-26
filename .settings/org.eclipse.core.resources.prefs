@@ -1,0 +1,11 @@
+eclipse.preferences.version=1
+encoding//src/main/java/com/project/init/controller/FeedController.java=UTF-8
+encoding//src/main/java/com/project/init/controller/PlanController.java=UTF-8
+encoding//src/main/java/com/project/init/controller/PostController.java=UTF-8
+encoding//src/main/java/com/project/init/controller/UserController.java=UTF-8
+encoding//src/main/java/com/project/init/dao/AdminDao.java=UTF-8
+encoding//src/main/java/com/project/init/dao/PlanDao.java=UTF-8
+encoding//src/main/java/com/project/init/dao/PlanIDao.java=UTF-8
+encoding//src/main/java/com/project/init/util/Constant.java=UTF-8
+encoding//src/main/webapp/resources/css/feed/fc/main.css=UTF-8
+encoding/<project>=UTF-8

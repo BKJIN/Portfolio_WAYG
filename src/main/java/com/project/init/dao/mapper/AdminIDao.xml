@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.init.dao.AdminIDao" >
+	
+	<!-- 장소 통계 -->
+	<select id="selectDashBoardPlaces" resultType="com.project.init.dto.PlanDtDto">
+		<![CDATA[
+			select *
+			 
+			from(select placename, latitude, longitude, category, count(*) as count 
+				 from plan_dt group by placename, latitude, longitude, category 
+				 order by count(*) desc)
+				 
+			where ${value1} = #{value2} 
+			and rownum <=5
+		]]>
+	</select>
+	
+	<!-- 회원 년도, 월, 일 별 통계 -->
+   	<select id="selectDashBoardUser" resultType="com.project.init.dto.UserDto">
+		select to_char(userjoindate, ${value1}) as userdate,count(*) as count 
+		
+		from userinfo 
+		
+		where to_char(userjoindate, #{value2}) between #{value3} and #{value4} 
+			  group by to_char(userjoindate, ${value1}) 
+			  order by to_char(userjoindate, ${value1}) asc
+	</select>  
+	
+	<!-- 회원 성별 통계 -->
+	<select id="selectDashBoardUserGender" resultType="com.project.init.dto.UserDto">
+	select usergender, count(*) as count from userinfo group by usergender order by count(*) desc
+	</select>
+	
+	<!-- 회원 연령별 통계 -->
+	<select id="selectDashBoardUserAge" resultType="com.project.init.dto.UserDto">
+		<![CDATA[
+			SELECT agegroup, count(agegroup) as count
+		    FROM (SELECT CASE 
+		                    WHEN                  userage < 20 THEN '19세미만'
+		                    WHEN userage > 19 AND userage < 30 THEN '20 ~ 29세'
+		                    WHEN userage > 29 AND userage < 40 THEN '30 ~ 39세'
+		                    WHEN userage > 39 AND userage < 50 THEN '40 ~ 49세'
+		                    WHEN userage > 49 AND userage < 60 THEN '50 ~ 59세'
+		                    WHEN userage > 59              THEN '60세이상'
+		                    END as agegroup
+		          FROM userinfo
+		         )
+		    GROUP BY agegroup
+		    ORDER BY agegroup
+	    ]]>
+	</select>
+	
+
+	<!-- 회원 탈퇴 -->
+	<delete id="deleteUser" parameterType="String">
+		 delete from userinfo where usernick = #{nick}
+	</delete>
+	
+	<!-- 회원 정지 활성화-->
+	<update id="disabledUser" parameterType="com.project.init.dto.UserDto">
+		update userinfo set userenabled = 0 where usernick = #{nick}
+	</update>
+	
+	<!-- 회원 정지 비활성화-->
+	<update id="activateUser" parameterType="com.project.init.dto.UserDto">
+		update userinfo set userenabled = 1 where usernick = #{nick}
+	</update>
+</mapper>

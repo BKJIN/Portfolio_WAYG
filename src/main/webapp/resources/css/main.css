@@ -1,0 +1,200 @@
+body::-webkit-scrollbar {
+    width: 10px; 
+}
+
+body::-webkit-scrollbar-thumb {
+    background: #A0A0A0 ; 
+    border-radius: 15px;
+}
+
+body::-webkit-scrollbar-track {
+    background: #CCCCCC;
+}
+
+
+
+section.container {
+	margin-top: 5em;
+}
+
+.main-body-top {
+	height: 600px;
+}
+
+
+.main-body-top .map {
+	width: 64%;
+}
+
+
+.kakaomap {
+	font-size: 3rem;
+	color: #FFC300;
+}
+
+.labels {
+	font-style: italic;
+	font-weight: 500;
+}
+
+#filter-title {
+	font-size: 40px;
+	font-weight: 400;
+}
+
+span.required {
+	color: orange;
+	font-weight: 400;
+}
+
+
+
+
+.main-body-top .right {
+	width: 35%;
+}
+
+
+.main-body-top .right .user-info {
+	height: 18%;
+}
+
+.main-body-top .right .user-info .user-info-icon {
+	font-size: 4rem;
+	color: #112FE0;
+}
+
+.main-body-top .right .user-info .user-info-top {
+	height: 90%;
+	align-items: center;
+}
+
+
+.main-body-top .right .user-info .user-info-top .profile-img {
+	width: 30%;
+	text-align: center;
+}
+
+.main-body-top .right .user-info .user-info-top .nickname {
+	width: 50%;
+}
+
+.main-body-top .right .map-filter {
+	height: 80%;
+}
+
+
+.main-body-top .right .map-filter .map-filter-icon {
+	font-size: 2rem;
+	color: #FFC300;
+}
+
+
+
+.main-body-bottom {
+	height: auto;
+}
+
+.main-body-bottom .recommand {
+	height: 25%;
+}
+
+.main-body-bottom .recommand .recommand-icon {
+	align-items: end;
+}
+
+
+.main-body-bottom .recommand .recommand-icon .btn1{
+	font-size: 2.3rem;
+}
+
+.main-body-bottom .recommand .recommand-icon .btn2{
+	font-size: 1.5rem;
+}
+
+.main-body-bottom .recommand .posts {
+	height: 80%;
+}
+
+.main-body-bottom .recommand .posts .post, .anFeed, .nullPost {
+	width : 24%;
+	height: 100%;
+}
+
+.main-body-bottom .recommand .posts .post-top {
+	height: 80%;
+	margin-bottom: 2%;
+}
+
+.main-body-bottom .recommand .posts .post-bottom {
+	height: 18%;
+}
+
+img {
+	object-fit: cover;
+}
+
+.wrap {
+	padding: 0;
+	margin: 0;
+	border-radius: 15px;
+} 
+
+.wrap .info {
+	width: 350px;
+	height: 150px;
+	background: #fff;
+	border-radius: 15px;
+}
+
+.wrap .info:nth-child(1) {
+	border: 0;
+	box-shadow: 0px 2px 5px #888;
+}
+
+.info .title {
+	padding: 5px 0 0 5px;
+	box-shadow: 0px 2px 1px #888;
+	height: 25%;
+	border-radius: 15px;
+	font-size: 18px;
+	font-weight: bold;
+	color: white;
+}
+
+.info .body {
+	position: relative;
+}
+
+.info .content {
+	position: relative;
+	margin: 13px 0 0 90px;
+	height: 100%;
+}
+
+.content .address {
+	font-size: 13px;
+	color: #888;
+	margin-top: -2px;
+}
+
+.content .category {
+	font-size: 13px;
+	color: #888;
+	margin-top: -2px;
+}
+
+.content .placeName {
+	font-size: 13px;
+	color: #888;
+	margin-top: -2px;
+}
+
+.info .img {
+	margin: 5px 5px 0px 5px;
+	position: absolute;
+	width: 70px;
+	height: 60px;
+	color: #888;
+	overflow: hidden;
+}

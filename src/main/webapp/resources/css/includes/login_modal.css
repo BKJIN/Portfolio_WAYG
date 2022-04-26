@@ -1,0 +1,29 @@
+#loginModal .modal-dialog {
+	height : 100%;
+}
+
+#loginModal .modal-dialog .modal-content {
+	height : 45%;
+	border : none;
+	border-radius: 0;
+}
+
+#loginModal .modal-dialog #modalCloseBtn {
+	font-size: 2rem;
+	cursor: pointer;
+}
+
+#loginModal .modal-dialog .modal-content .modal-header #title {
+	line-height : 100%;
+	font-size: 50px;
+	font-weight: 400;
+}
+
+
+#loginModal .modal-dialog .modal-content .modal-body {
+	height : 100%;
+}
+
+#loginModal div div div.modal-body.d-flex.justify-content-center form div.form-group label {
+	font-weight: 400;
+}

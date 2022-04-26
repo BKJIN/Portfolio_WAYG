@@ -1,0 +1,154 @@
+
+#modalCloseBtn {
+	font-size: 3rem;
+}
+
+.modal-dialog {
+	height: 100%;	
+}
+
+.modal-content {
+	height: 80%;
+}
+
+.modal-content .post-img {
+	width: 60%;
+}
+.modal-content .post-img > .carousel > .Citem > .carousel-item {
+	background-color: #fff;
+	height: 800px;
+	text-align: center;
+	line-height:800px;
+}
+
+
+.modal-content .post-img > .carousel > .Citem > .carousel-item > img {
+	max-width: 100%;
+	max-height: 800px;
+}
+
+
+.modal-content .list-group {
+	width: 40%;
+}
+
+.modal-content .list-group .list-group-item:nth-child(1) {
+	height: 10%;
+}
+
+.modal-content .list-group .list-group-item:nth-child(2) {
+	height: 38.35%;
+	overflow: auto;
+}
+
+.modal-content .list-group .list-group-item:nth-child(3) {
+	height: 10%;
+}
+
+.modal-content .list-group .list-group-item:nth-child(4) {
+	height: 295px;
+}
+
+.modal-icon {
+	font-size: 1.5rem;
+}
+
+ul {
+	list-style: none;	
+}
+
+.profile-img-s {
+	height: 100%;
+}
+
+.img-s {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+}
+
+.list-group-item:nth-child(3) {
+	align-items: center;
+}
+
+input.comment,
+input.recomment {
+	width: 85%;
+	border: none;
+	border-bottom: 1px solid #dee2e6;
+}
+
+profile-img-xxs {
+	height: 100%;
+}
+
+.img-xxs {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+}
+
+.comments {
+	height: 90%;
+	overflow : auto;
+}
+
+.comments .comment-block {
+	align-items: center;
+}
+
+span.comment-text {
+	overflow-wrap: break-word;
+}
+
+.comment-block .form-group {
+	display: none;
+}
+
+button.addcomment,
+button.addreplyComment {
+	transform: rotate(180deg);
+}
+
+i.fa-reply {
+	transform: scaleX(-1);
+}
+
+.location {
+	width: auto;
+	height: 30px;
+	overflow-x: auto;
+	display: none;
+}
+.comments::-webkit-scrollbar,
+.location::-webkit-scrollbar,
+.modal-content .list-group .list-group-item:nth-child(2)::-webkit-scrollbar{
+    width: 2px;
+    height: 4px;
+}
+.comments::-webkit-scrollbar-thumb,
+.location::-webkit-scrollbar-thumb,
+.modal-content .list-group .list-group-item:nth-child(2)::-webkit-scrollbar-thumb {
+    background: #A0A0A0 ;
+    border-radius: 5px;
+}
+.comments::-webkit-scrollbar-track,
+.location::-webkit-scrollbar-track,
+.modal-content .list-group .list-group-item:nth-child(2)::-webkit-scrollbar-track {
+    background: #CCCCCC;
+}
+
+
+.location-item {
+	height: 90%;
+	font-size: 13px;
+	font-style: italic;
+	white-space: pre;
+}
+
+.like.active {
+	color: red;
+}
+.modal-like.active {
+	color: red;
+}

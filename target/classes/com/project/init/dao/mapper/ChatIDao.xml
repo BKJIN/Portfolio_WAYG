@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.init.dao.ChatIDao">
+	
+<select id="idFromNick" parameterType="String" resultType="String">
+	select useremail from userinfo where usernick = #{subNick}
+</select>
+
+<select id="nickFromId" parameterType="String" resultType="String">
+	select usernick from userinfo where useremail = #{pubId}
+</select>
+
+<select id="checkChatRoom" parameterType="com.project.init.dto.ChatRoomDto" resultType="com.project.init.dto.ChatRoomDto">
+	select roomid,pubid,subid,pubexit,subexit from chatroom where (pubid= #{pubId} and subid= #{subId}) or (pubid= #{subId} and subid= #{pubId})
+</select>
+
+<insert id="createChatRoom" parameterType="com.project.init.dto.ChatRoomDto">
+	insert into chatroom values(CHAT_ROOM_SEQ.nextval,#{roomId},#{pubId},#{subId},#{pubImg},#{subImg},#{pubNick},#{subNick},1,1,'f','t',0,0,null,null)
+</insert>
+
+<select id="chatRoomList" parameterType="String" resultType="com.project.init.dto.ChatRoomDto">
+	select * from chatroom where (pubid = #{id} or subid = #{id}) order by roomNum
+</select>
+
+<select id="getChatRoomDto" parameterType="String" resultType="com.project.init.dto.ChatRoomDto">
+	select * from chatroom where roomId = #{roomId}
+</select>
+
+<select id="getChatMsgDtoPub" parameterType="String" resultType="com.project.init.dto.ChatMessageDto">
+	<![CDATA[
+		select * from chatmessage where m_roomid = #{roomId} and m_num > (select pubexitNum from chatroom where roomid= #{roomId}) order by m_num
+	]]>
+</select>
+
+<select id="getChatMsgDtoSub" parameterType="String" resultType="com.project.init.dto.ChatMessageDto">
+	<![CDATA[
+		select * from chatmessage where m_roomid = #{roomId} and m_num > (select subexitNum from chatroom where roomid= #{roomId}) order by m_num
+	]]>
+</select>
+
+<insert id="saveMsg" parameterType="com.project.init.dto.ChatMessageDto">
+	insert into chatmessage values (#{m_roomId}, #{m_pubId}, #{m_pubNick}, #{m_subId}, #{m_subNick}, #{m_sendTime}, #{m_pubImg, jdbcType = VARCHAR}, #{m_subImg, jdbcType = VARCHAR}, CHAT_MSG_SEQ.nextval, #{m_sendId}, #{m_pubMsg, jdbcType = VARCHAR}, #{m_subMsg, jdbcType = VARCHAR})
+</insert>
+
+<select id="otherExitChk" parameterType="String" resultType="com.project.init.dto.ChatRoomDto">
+	select pubexit,subexit from chatroom where roomid = #{roomId}
+</select>
+
+<delete id="removeChatRoom" parameterType="String">
+	delete from chatroom where roomid = #{roomId}
+</delete>
+
+<update id="pubExitRoom" parameterType="Map">
+	update chatroom set pubExitNum=(select max(m_num) from chatmessage where roomid = #{roomId}), pubExit = 't', pubrecentmsg = null where roomid= #{roomId}
+</update>
+
+<update id="subExitRoom" parameterType="Map">
+	update chatroom set subExitNum=(select max(m_num) from chatmessage where roomid = #{roomId}), subExit = 't', subrecentmsg = null where roomid= #{roomId}
+</update>
+	
+<update id="enterRoom" parameterType="String">
+	update chatroom set pubexit = 'f' , subexit = 'f' where roomid = #{roomId}
+</update>
+
+<update id="addUnReadMsg" parameterType="com.project.init.dto.ChatMessageDto">
+	update chatroom set pubunreadmsg = (select NVL(MAX(pubunreadmsg), '0') + 1 from chatroom where roomid = #{m_roomId}) , subunreadmsg = (select NVL(MAX(subunreadmsg), '0') + 1  from chatroom where roomid = #{m_roomId}) where roomid = #{m_roomId}
+</update>
+
+<update id="reSetPUnReadMsg" parameterType="String">
+	update chatroom set pubunreadmsg = 0 where roomid = #{roomId}
+</update>
+
+<update id="reSetSUnReadMsg" parameterType="String">
+	update chatroom set subunreadmsg = 0 where roomid = #{roomId}
+</update>
+
+<update id="saveRecentMsg" parameterType="com.project.init.dto.ChatMessageDto">
+	update chatroom set pubrecentmsg = concat(#{m_pubMsg, jdbcType = VARCHAR},#{m_subMsg, jdbcType = VARCHAR}), subrecentmsg = concat(#{m_pubMsg, jdbcType = VARCHAR},#{m_subMsg, jdbcType = VARCHAR}) where roomid= #{m_roomId}
+</update>
+
+</mapper>
+

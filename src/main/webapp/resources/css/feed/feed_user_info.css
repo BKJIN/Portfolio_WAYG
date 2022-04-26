@@ -1,0 +1,44 @@
+#prfImgArea {
+	position : relative;
+}
+.eraseImg {
+	position : absolute;
+	right: 1px;
+	color: black;
+}
+.validation {
+	height:20px;
+	font-size:14px; 
+}
+
+textarea {
+	resize: none;
+}
+
+#userProfileMsg {
+	border: 1px solid #ced4da;
+}
+
+label#male.active, label#male:hover, label#male:focus {
+	background-color: #4E77FF;
+	color: white;
+}
+
+label#female.active, label#female:hover, label#female:focus {
+	background-color: #FF5C5C;
+	color: white
+}
+
+.form-group label {
+	font-weight: 500;
+}
+
+.form-group .form-control {
+	border: none;
+	border-radius: 0;
+	border-bottom: 1px solid #ced4da;
+}
+
+#userinfo {
+	display: none;
+}

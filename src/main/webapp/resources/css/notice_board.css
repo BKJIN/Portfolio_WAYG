@@ -1,0 +1,45 @@
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+#main {
+	margin-top: 5rem;
+	height: 800px;
+}
+thead tr {
+	background-color: #F9F9F9;
+}
+#write {
+	height: 40%;
+}
+
+h3>i {
+	font-weight: 300;
+}
+
+
+#content {
+	resize: none;
+}
+
+
+#frm input {
+	border: none;
+	border-radius: 0;
+	border-bottom: 1px solid #CCC;
+}
+
+#frm label {
+	border-right: 1px solid #CCC;
+	font-style: italic;
+}
+
+
+#frm input, #content {
+	background-color: #F6FAFF;
+}
+
+#frm input[readonly], #content[readonly] {
+	background-color: transparent;
+}

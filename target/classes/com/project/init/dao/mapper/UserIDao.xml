@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.init.dao.UserIDao">
+	<select id="emailCheck" parameterType="String" resultType="int">
+		select count(useremail) from userinfo where useremail = #{id}
+	</select>
+
+	<select id="nickCheck" parameterType="String" resultType="int">
+		select count(usernick) from userinfo where usernick = #{nick}
+	</select>
+
+	<insert id="join" parameterType="com.project.init.dto.UserDto">
+		insert into userinfo(useremail,userpw,usernick,userbirth,userage,usergender,userpst,userauthority,useraddress1,userprofileimg,userjoindate,useraddress2) 
+		values(#{userEmail},#{userPw},#{userNick},#{userBirth},#{userAge},#{userGender},#{userPst},#{userAuthority},#{userAddress1},#{userProfileImg},sysdate,#{userAddress2})
+	</insert> <!-- values값 dto랑 맞춰서 -->
+	
+	<select id="login" parameterType="String" resultType="com.project.init.dto.UserDto">
+		select * from userinfo where useremail = #{userEmail}
+	</select>
+
+	<select id="userVisit" parameterType="String">
+		update userinfo set uservisitdate = sysdate where useremail = #{uId}
+	</select>
+	
+	<select id="myPage" parameterType="String" resultType="com.project.init.dto.UserDto">
+		select useremail,usernick,userbirth,usergender,userpst,useraddress1,userprofileimg,userprofilemsg,useraddress2 from userinfo where useremail = #{uId}
+	</select> <!-- db랑 dto랑 이름 같게 하면 모든 컬럼 안써도 돼 -->	
+	
+	<select id="getolduPrfImg" parameterType="String" resultType="String">
+		select userprofileimg from userinfo where useremail = #{uId}
+	</select>
+	
+	<update id="addPrfImg" parameterType="com.project.init.dto.UserDto">
+		update userinfo set userprofileimg = #{userProfileImg} where useremail = #{userEmail}
+	</update>
+	
+	<update id="deletePrfImg" parameterType="Map">
+		update userinfo set userprofileimg = #{basicImg} where useremail = #{uId}		
+	</update>
+
+	<update id="mdfMyPage" parameterType="com.project.init.dto.UserDto">
+		update userinfo set usernick = #{userNick}, userpst = #{userPst}, useraddress1 = #{userAddress1}, userprofilemsg = #{userProfileMsg}, useraddress2 = #{userAddress2} where useremail = #{userEmail}
+	</update>
+	
+	<select id="pwcheck" parameterType="String" resultType="String">
+		select userpw from userinfo where useremail = #{uId}
+	</select>
+	
+	<update id="modifyPw" parameterType="com.project.init.dto.UserDto">
+		update userinfo set userpw = #{userPw} where useremail = #{userEmail}
+	</update>
+	
+	<delete id="resign" parameterType="string">
+		delete from userinfo where useremail = #{uId}
+	</delete>
+	
+	<select id="searchNick" parameterType="Map" resultType="com.project.init.dto.UserDto">
+		select useremail,usernick,userprofileimg from userinfo where usernick = #{nick} and not (useremail = #{uId})
+	</select>
+	
+	<select id="searchImg" parameterType="String" resultType="String">
+		select userprofileimg from userinfo where useremail = #{uId}
+	</select>
+	
+</mapper>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.project.init.dao.SearchIDao">
+
+   <select id="searchHashtag" parameterType="com.project.init.dto.SearchDto" resultType="com.project.init.dto.PostDto">
+      SELECT
+      	postNo,
+      	titleImage ,
+   	    (SELECT userProfileImg FROM UserInfo WHERE userEmail = POST.EMAIL) userProfileImg,
+	    (SELECT userNick FROM UserInfo WHERE userEmail = POST.EMAIL) userNick,
+	    (SELECT count(*) from POST_VIEW where POST_VIEW.postno = POST.postno) VIEWS,
+	 	(SELECT count(*) from COMMENTS where comments.postno = POST.postno)comments, 
+		(SELECT count(*) from POST_LIKE where POST_LIKE.postno = POST.postno) likes
+      
+      FROM POST WHERE Hashtag LIKE '%'||#{searchVal}||'%'
+   </select>
+
+	<select id="checkNickName" parameterType="com.project.init.dto.SearchDto" resultType="String">
+		SELECT 
+		userEmail 
+		FROM UserInfo 
+		WHERE 
+		userNick 
+		LIKE '%'||#{searchVal}||'%'
+   </select>
+
+   <select id="searchNickName" parameterType="String" resultType="com.project.init.dto.PostDto">
+   		 SELECT 
+   		 postNo,
+   		 titleImage ,
+   	    (SELECT userProfileImg FROM UserInfo WHERE userEmail = POST.EMAIL) userProfileImg,
+	    (SELECT userNick FROM UserInfo WHERE userEmail = POST.EMAIL) userNick,
+	    (SELECT count(*) from POST_VIEW where POST_VIEW.postno = POST.postno) VIEWS,
+	 	(SELECT count(*) from COMMENTS where comments.postno = POST.postno)comments, 
+		(SELECT count(*) from POST_LIKE where POST_LIKE.postno = POST.postno) likes
+		 FROM POST
+   		  WHERE email = #{value}
+    
+   </select>
+   
+   <select id="checkLocation" parameterType="com.project.init.dto.SearchDto" resultType="String">
+		<![CDATA[
+		SELECT 
+		DISTINCT 
+		POSTNO 
+		FROM post_dt 
+		WHERE 
+		location 
+		LIKE '%'||#{searchVal}||'%'
+		]]>
+   </select>
+   
+   <select id="searchLocation" parameterType="String" resultType="com.project.init.dto.PostDto">
+   		 SELECT 
+   		 postNo,
+   		 titleImage ,
+   	    (SELECT userProfileImg FROM UserInfo WHERE userEmail = POST.EMAIL) userProfileImg,
+	    (SELECT userNick FROM UserInfo WHERE userEmail = POST.EMAIL) userNick,
+	    (SELECT count(*) from POST_VIEW where POST_VIEW.postno = POST.postno) VIEWS,
+	 	(SELECT count(*) from COMMENTS where comments.postno = POST.postno)comments, 
+		(SELECT count(*) from POST_LIKE where POST_LIKE.postno = POST.postno) likes
+  		 
+   		 FROM POST
+   		  WHERE POSTNO =  #{value}
+   </select>
+
+</mapper>

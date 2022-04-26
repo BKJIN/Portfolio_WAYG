@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.init.dao.BoardIDao" >
+
+	<select id="listNotice" resultType="com.project.init.dto.NoticeBoardDto">
+		<![CDATA[
+			SELECT * 
+			FROM (SELECT A.*, rownum rnum 
+				  FROM(SELECT * FROM notice_board ORDER BY bId ASC) A) 
+			WHERE rnum < 11
+		]]>
+	</select>
+
+	<insert id="writeNotice" parameterType="com.project.init.dto.NoticeBoardDto">
+		INSERT INTO notice_board(bId, bName, bTitle, bContent) 
+		VALUES(notice_board_seq.nextVal, #{bName}, #{bTitle}, #{bContent})
+	</insert>
+
+	<select id="contentViewNotice" parameterType="int" resultType="com.project.init.dto.NoticeBoardDto">
+		SELECT * FROM notice_board WHERE bid = #{bid}
+	</select>
+
+	<update id="upHitNotice" parameterType="int">
+		UPDATE notice_board SET bHit = bHit + 1 WHERE bId = #{bId}
+	</update>
+	
+	<update id="noticeModify" parameterType="com.project.init.dto.NoticeBoardDto">
+		UPDATE notice_board SET bTitle = #{bTitle}, bContent = #{bContent} WHERE bId = #{bId}
+	</update>
+	
+	<delete id="noticeDelete" parameterType="int">
+		DELETE FROM notice_board WHERE bId = #{bId}
+	</delete>
+
+
+</mapper>
+

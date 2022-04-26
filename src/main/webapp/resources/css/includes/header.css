@@ -1,0 +1,35 @@
+
+.menu-icon  {
+	font-size: 1.75rem;
+	color: black;
+}
+
+.navbar {
+	max-height: 70px;
+}
+
+#logo {
+	max-height: 50px;
+}
+
+.navbar-form .btn-default {
+	height: 90%;
+}
+
+.input-group input {
+	border: none;
+}
+
+.notice .dropdown-toggle::after {
+	display : none;
+}
+
+.notice .dropdown-menu {
+	width: 250px;
+	height: 300px;
+	overflow: auto;
+}
+
+.notice .dropdown-menu list-group-item {
+	height: 10%;
+}
